@@ -1,36 +1,34 @@
+// src/hooks/useThemeSync.ts
 import { useEffect } from 'react';
-import { themeParams } from '@tma.js/sdk-react';
+import { themeParams, on } from '@tma.js/sdk-react';
 
-export function useSyncTheme(isReady: boolean) {
+export function useSyncTheme() {
   useEffect(() => {
-    if (!isReady) return;
     const root = document.documentElement;
 
-    // Безопасный геттер для сигналов
-    const get = (key: string) => {
-      // @ts-ignore - свойства являются сигналами, TS не всегда это корректно типизирует
-      return (themeParams as any)[key]?.() || '';
+    const applyTheme = () => {
+      const get = (key: string) => {
+        // @ts-ignore
+        return (themeParams as any)[key]?.() || '';
+      };
+
+      root.style.setProperty('--tg-theme-bg-color', get('bg_color'));
+      root.style.setProperty('--tg-theme-text-color', get('text_color'));
+      root.style.setProperty('--tg-theme-hint-color', get('hint_color'));
+      root.style.setProperty('--tg-theme-button-color', get('button_color'));
+      root.style.setProperty('--tg-theme-button-text-color', get('button_text_color'));
+      root.style.setProperty('--tg-theme-secondary-bg-color', get('secondary_bg_color'));
+
+      const scheme = get('color_scheme');
+      if (scheme) root.setAttribute('data-color-scheme', scheme);
     };
 
-    // Основные цвета
-    root.style.setProperty('--tg-theme-bg-color', get('bg_color'));
-    root.style.setProperty('--tg-theme-text-color', get('text_color'));
-    root.style.setProperty('--tg-theme-hint-color', get('hint_color'));
-    root.style.setProperty('--tg-theme-button-color', get('button_color'));
-    root.style.setProperty('--tg-theme-button-text-color', get('button_text_color'));
-    root.style.setProperty('--tg-theme-secondary-bg-color', get('secondary_bg_color'));
+    // Применяем тему СРАЗУ (на случай если данные уже есть)
+    applyTheme();
 
-    // ✅ ИСПРАВЛЕНО: используем snake_case color_scheme
-    const scheme = get('color_scheme');
-    if (scheme) {
-      root.setAttribute('data-color-scheme', scheme);
-    }
+    // И подписываемся на будущие изменения
+    const unsubscribe = on('theme_changed', applyTheme);
 
-    // Meta tag
-    const meta = document.getElementById('theme-color-meta');
-    if (meta) {
-      meta.setAttribute('content', get('bg_color') || '#ffffff');
-    }
-
+    return unsubscribe;
   }, []);
 }
