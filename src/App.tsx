@@ -26,7 +26,7 @@ function App() {
     return unsubscribe;
   }, []);
 
-  useSyncTheme(isSdkReady);
+  useSyncTheme();
 
   if (!isSdkReady) {
     return <div style={{ background: '#ffffff', height: '100vh' }} />;
