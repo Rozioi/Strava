@@ -16,7 +16,7 @@ function App() {
   useEffect(() => {
     initSDK();
 
-    const unsubscribe = on('theme_changed', () => {
+    const unsubscribe = on('*', () => {
       setIsSdkReady(true);
 
       requestWriteAccess().catch(console.error);
