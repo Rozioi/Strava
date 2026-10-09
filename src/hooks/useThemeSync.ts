@@ -19,7 +19,7 @@ export function useSyncTheme() {
       root.style.setProperty('--tg-theme-button-text-color', get('button_text_color'));
       root.style.setProperty('--tg-theme-secondary-bg-color', get('secondary_bg_color'));
 
-      const scheme = get('color_scheme');
+      const scheme = get('theme');
       if (scheme) root.setAttribute('data-color-scheme', scheme);
     };
 
