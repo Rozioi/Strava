@@ -1,0 +1,42 @@
+.container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  padding-bottom: var(--tg-safe-area-inset-bottom, 0px);
+  background-color: var(--tg-theme-secondary-bg-color, #efeff3);
+  border-top: 1px solid var(--tg-theme-section-separator-color, #eaeaea);
+max-width: 70%;
+margin: 0 auto;
+padding: 6px 12px;
+border-radius: 22px;
+margin-bottom: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 50px;
+  z-index: 1000;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--tg-theme-hint-color);
+  font-size: 12px;
+  cursor: pointer;
+  flex: 1;
+  height: 100%;
+  transition: color 0.2s;
+}
+
+.item.active {
+  color: var(--tg-theme-accent-text-color);
+}
+
+.icon {
+  font-size: 20px;
+  margin-bottom: 2px;
+}

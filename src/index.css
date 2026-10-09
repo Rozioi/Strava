@@ -1,0 +1,23 @@
+:root {
+  font-family: system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+body {
+  margin: 0;
+  background-color: var(--tg-theme-bg-color);
+  color: var(--tg-theme-text-color);
+
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  box-sizing: border-box;
+}
