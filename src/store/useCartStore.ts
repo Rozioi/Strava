@@ -1,3 +1,5 @@
+
+
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 
@@ -23,7 +25,7 @@ interface CartState {
 // 3. Создаем стор с мидлваром persist (чтобы корзина не пропадала при обновлении)
 export const useCartStore = create<CartState>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       // Начальное состояние
       items: [],
       totalAmount: 0,
