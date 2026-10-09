@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
 import { themeParams } from '@tma.js/sdk-react';
 
-export function useSyncTheme() {
+export function useSyncTheme(isReady: boolean) {
   useEffect(() => {
+    if (!isReady) return;
     const root = document.documentElement;
 
     // Безопасный геттер для сигналов
